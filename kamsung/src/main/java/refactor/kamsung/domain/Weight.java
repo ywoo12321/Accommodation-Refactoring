@@ -8,6 +8,7 @@ import javax.persistence.Embeddable;
 @Getter
 public class Weight {
 
+    private String main;
     private String natural;
     private String modern;
     private String industrial;
@@ -15,7 +16,8 @@ public class Weight {
 
     protected Weight() {}
 
-    public Weight(String natural, String modern, String industrial, String asia) {
+    public Weight(String main, String natural, String modern, String industrial, String asia) {
+        this.main = main;
         this.natural = natural;
         this.modern = modern;
         this.industrial = industrial;
