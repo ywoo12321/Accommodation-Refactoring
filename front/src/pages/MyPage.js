@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import LikeLodging from "../components/LikeLodging";
 import Recommend from "../components/Recommend";
-import account from "./userAccount";
+import account from "../components/mock/userAccount";
 import Chart from "../components/Chart";
 import UpLoad from "../components/UpLoad";
 

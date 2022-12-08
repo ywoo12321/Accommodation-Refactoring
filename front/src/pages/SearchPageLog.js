@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useLocation, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import mock from "./searchMock";
+import mock from "../components/mock/searchMock";
 import axios from "axios";
 
 const SearchPageLog = () => {

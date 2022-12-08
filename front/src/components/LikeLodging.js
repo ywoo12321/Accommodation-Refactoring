@@ -3,7 +3,7 @@ import theme from "../styles/theme";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import account from "../pages/userAccount";
+import account from "./mock/userAccount";
 
 const id = account.id;
 console.log(1);

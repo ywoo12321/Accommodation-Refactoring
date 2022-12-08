@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useState, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
-import mock from "./lodgingMock";
+import mock from "../components/mock/lodgingMock";
 import axios from "axios";
 
 let currentPath = "";

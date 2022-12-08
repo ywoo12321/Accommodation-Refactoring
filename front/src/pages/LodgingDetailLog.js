@@ -6,8 +6,8 @@ import { useState, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 import active_heart_btn from "../images/active_heart_btn.png";
 import disabled_heart_btn from "../images/disabled_heart_btn.png";
-import account from "./userAccount";
-import mock from "./lodgingMock";
+import account from "../components/mock/userAccount";
+import mock from "../components/mock/lodgingMock";
 import axios from "axios";
 
 const id = account.id;

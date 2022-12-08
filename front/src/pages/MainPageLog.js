@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import styled from "@emotion/styled";
 import theme from "../styles/theme";
-import account from "./userAccount";
+import account from "../components/mock/userAccount";
 import MainAdvertise from "../components/MainAdvertise";
-import mock from "./mock";
+import mock from "../components/mock/mock";
 
 const id = account.id;
 const nickName = account.nickName;

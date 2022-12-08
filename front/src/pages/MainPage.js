@@ -6,7 +6,7 @@ import axios from "axios";
 import styled from "@emotion/styled";
 import theme from "../styles/theme";
 import MainAdvertise from "../components/MainAdvertise";
-import mock from "./mock";
+import mock from "../components/mock/mock";
 
 const id = "id1";
 const MainPage = () => {
@@ -21,15 +21,18 @@ const MainPage = () => {
     autoplaySpeed: 2000,
     pauseOnHover: true,
   };
-  const [mainPageInfo, setMainPageInfo] = useState([]); //서버로 받아오기
-  const fetchMainPage = async () => {
-    const response = await axios.get(`https://kaybe-wgkwk.run.goorm.io/lodgings/recommendation`);
-    await console.log(Object.values(response.data[0]));
-    setMainPageInfo(Object.values(response.data[0]));
-  };
-  useEffect(() => {
-    fetchMainPage();
-  }, []);
+  // const [mainPageInfo, setMainPageInfo] = useState([]); //서버로 받아오기
+  const [mainPageInfo, setMainPageInfo] = useState(Object.values(mock[0]));
+
+  // const fetchMainPage = async () => {
+  //   const response = await axios.get(`https://kaybe-wgkwk.run.goorm.io/lodgings/recommendation`);
+  //   // await console.log(Object.values(response.data[0]));
+  //   setMainPageInfo(Object.values(response.data[0]));
+  // };
+  // useEffect(() => {
+  //   fetchMainPage();
+  //   console.log(mainPageInfo);
+  // }, []);
 
   return (
     <>
@@ -137,19 +140,5 @@ const ListBox = styled.div`
     display: none;
   }
 `;
-const LastBox = styled.div`
-  margin-top: 14px;
-  margin-bottom: 97px;
-  width: 1920px;
-  height: 269px;
-  display: block-flex;
-  flex-direction: row;
-  align-items: center;
-  box-shadow: 0px 2px 4px #edece3, inset 0px 2px 4px #edece3;
-  overflow: scroll;
-  white-space: nowrap;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
+
 export default MainPage;
