@@ -17,6 +17,7 @@ public class UserPrefer {
     @Column(name = "user_prefer_id")
     private Long id;
 
+    @OneToOne(mappedBy = "userPrefer", fetch = FetchType.LAZY)
     private User user;
 
     private Weight weight;
