@@ -9,18 +9,29 @@ import javax.persistence.Embeddable;
 public class Weight {
 
     private String main;
-    private String natural;
-    private String modern;
-    private String industrial;
-    private String asia;
+    private int natural;
+    private int modern;
+    private int industrial;
+    private int asia;
 
     protected Weight() {}
 
-    public Weight(String main, String natural, String modern, String industrial, String asia) {
-        this.main = main;
+    public Weight(int natural, int modern, int industrial, int asia) {
         this.natural = natural;
         this.modern = modern;
         this.industrial = industrial;
         this.asia = asia;
+        if (natural > modern && natural > industrial &&  natural > asia) {
+            this.main = "natural";
+        }
+        if (modern > natural && modern > industrial &&  modern > asia) {
+            this.main = "modern";
+        }
+        if (industrial > modern && industrial > natural &&  industrial > asia) {
+            this.main = "industrial";
+        }
+        if (asia > modern && asia > natural &&  asia > industrial) {
+            this.main = "asia";
+        } // 메인태그 구하는 로직 나중에 수정
     }
 }
