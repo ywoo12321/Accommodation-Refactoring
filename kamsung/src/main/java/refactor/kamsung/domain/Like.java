@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -26,8 +27,9 @@ public class Like {
 
     private LocalDateTime likeDate;
 
-//    private LikeStatus status; 할지 말지 고민중
+    private LikeStatus status;
 
+    // 연관있는 user와 lodging은 좋아요 눌렀을때 바로 영속될수있게 setter따로 만들어줌
     public void setUser(User user) {
         this.user = user;
         user.getLikes().add(this);
@@ -37,4 +39,21 @@ public class Like {
         this.lodging = lodging;
         lodging.getLikes().add(this);
     }
+
+    // Like 생성자
+    public static Like createLike(User user, Lodging lodging) {
+        Like like = new Like();
+        like.setUser(user);
+        like.setLodging(lodging);
+        like.setStatus(LikeStatus.Like);
+        like.setLikeDate(LocalDateTime.now()); // 월로 변경
+        return like;
+    }
+
+    //==비즈니스 로직==//
+    // 좋아요 취소
+    public void cancel() {
+        this.setStatus(LikeStatus.Cancel);
+    }
+
 }
