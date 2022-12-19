@@ -27,7 +27,7 @@ public class Like {
 
     private LocalDateTime likeDate;
 
-    private LikeStatus status;
+    private LikeStatus likeStatus;
 
     // 연관있는 user와 lodging은 좋아요 눌렀을때 바로 영속될수있게 setter따로 만들어줌
     public void setUser(User user) {
@@ -45,7 +45,7 @@ public class Like {
         Like like = new Like();
         like.setUser(user);
         like.setLodging(lodging);
-        like.setStatus(LikeStatus.Like);
+        like.setLikeStatus(LikeStatus.LIKE);
         like.setLikeDate(LocalDateTime.now()); // 월로 변경
         return like;
     }
@@ -53,7 +53,7 @@ public class Like {
     //==비즈니스 로직==//
     // 좋아요 취소
     public void cancel() {
-        this.setStatus(LikeStatus.Cancel);
+        this.setLikeStatus(LikeStatus.CANCEL);
     }
 
 }
