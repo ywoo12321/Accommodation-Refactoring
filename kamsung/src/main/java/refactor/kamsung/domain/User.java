@@ -29,8 +29,8 @@ public class User {
     @JoinColumn(name = "user_prefer_id")
     private UserPrefer userPrefer;
 
-    public void setUserPrefer(UserPrefer userPrefer) {
-        this.userPrefer = userPrefer;
-        userPrefer.setUser(this);
-    }
+//    public void setUserPrefer(UserPrefer userPrefer) {
+//        this.userPrefer = userPrefer;
+//        userPrefer.setUser(this);
+//    }  유저성향엔티티에 넣을지
 }
