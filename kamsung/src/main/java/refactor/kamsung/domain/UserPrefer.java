@@ -23,7 +23,7 @@ public class UserPrefer {
 
     private Weight weight;
 
-    public void setUserPrefer(User user) {
+    public void makeUserPrefer(User user) {
         List<Like> likes = user.getLikes();
         int natural = 0;
         int modern = 0;
@@ -44,7 +44,8 @@ public class UserPrefer {
     public static UserPrefer createUserPrefer(User user) {
         UserPrefer userPrefer = new UserPrefer();
         userPrefer.setUser(user);
-        userPrefer.setUserPrefer(user);
+        userPrefer.makeUserPrefer(user);
+        user.setUserPrefer(userPrefer);
         return userPrefer;
     }
 
