@@ -7,8 +7,6 @@ import static org.junit.Assert.*;
 
 public class WeightTest {
 
-//    private Weight weight;
-
     private Weight createWeight(int natural, int modern, int industrial, int asia) {
         Weight weight = new Weight(natural, modern, industrial, asia);
         return weight;
