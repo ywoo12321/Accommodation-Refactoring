@@ -25,7 +25,7 @@ public class UserPreferTest {
         return lodging;
     }
 
-    private Like createLike(int natural, int modern, int industrial, int asia) {
+    private Like createLikeForTest(int natural, int modern, int industrial, int asia) {
         Lodging lodging = createLodging();
         User user = createUser();
         Weight weight = createWeight(natural, modern, industrial, asia);
@@ -45,10 +45,10 @@ public class UserPreferTest {
         //given
         User user = createUser();
         List<Like> userlikes = new ArrayList<>();
-        Like like1 = createLike(1,2,3,4);
-        Like like2 = createLike(7,4,2,6);
-        Like like3 = createLike(15,23,53,32);
-        Like like4 = createLike(1,2,2,1);
+        Like like1 = createLikeForTest(1,2,3,4);
+        Like like2 = createLikeForTest(7,4,2,6);
+        Like like3 = createLikeForTest(15,23,53,32);
+        Like like4 = createLikeForTest(1,2,2,1);
 
         //when
         userlikes.add(like1);
@@ -77,10 +77,10 @@ public class UserPreferTest {
         User user2 = createUser();
         List<Like> userlikes1 = new ArrayList<>();
         List<Like> userlikes2 = new ArrayList<>();
-        Like like1 = createLike(1,2,3,4);
-        Like like2 = createLike(7,4,2,6);
-        Like like3 = createLike(15,23,53,32);
-        Like like4 = createLike(1,2,2,1);
+        Like like1 = createLikeForTest(1,2,3,4);
+        Like like2 = createLikeForTest(7,4,2,6);
+        Like like3 = createLikeForTest(15,23,53,32);
+        Like like4 = createLikeForTest(1,2,2,1);
 
         //when
         userlikes1.add(like1);
