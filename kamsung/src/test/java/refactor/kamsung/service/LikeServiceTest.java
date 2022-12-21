@@ -41,12 +41,19 @@ public class LikeServiceTest {
         return lodging;
     }
 
+    private Weight createWeight(int natural, int modern, int industrial, int asia) {
+        Weight weight = new Weight(natural, modern, industrial, asia);
+        return weight;
+    }
+
     @Test
     public void 좋아요_클릭() throws Exception {
 
         //given
         User user = createUser();
         Lodging lodging = createLodging();
+        Weight weight = createWeight(1,1,1,1);
+        lodging.setWeight(weight);
 
         //when
         Long likeId = likeService.like(user.getId(), lodging.getId());
@@ -68,6 +75,8 @@ public class LikeServiceTest {
         //given
         User user = createUser();
         Lodging lodging = createLodging();
+        Weight weight = createWeight(1,1,1,1);
+        lodging.setWeight(weight);
         Long likeId = likeService.like(user.getId(), lodging.getId());
 
         //when
@@ -82,5 +91,74 @@ public class LikeServiceTest {
         //user, lodging에서 좋아요 빠졌는지 확인
         Assertions.assertTrue(!lodging.getLikes().contains(testLike));
         Assertions.assertTrue(!user.getLikes().contains(testLike));
+    }
+
+    @Test
+    public void 좋아요_클릭시_회원성향() throws Exception {
+
+        //given
+        User user = createUser();
+
+        Lodging lodging1 = createLodging();
+        Lodging lodging2 = createLodging();
+        Weight weight1 = createWeight(1,2,3,4);
+        Weight weight2 = createWeight(5,5,5,5);
+        lodging1.setWeight(weight1);
+        lodging2.setWeight(weight2);
+
+        //when
+        Long like1 = likeService.like(user.getId(), lodging1.getId());
+        Long like2 = likeService.like(user.getId(), lodging2.getId());
+
+        //then
+        Assertions.assertEquals(user.getUserPrefer().getWeight().getNatural(), 6);
+        Assertions.assertEquals(user.getUserPrefer().getWeight().getIndustrial(), 8);
+    }
+
+    @Test
+    public void 좋아요_취소시_회원성향() throws Exception {
+
+        //given
+        User user = createUser();
+
+        Lodging lodging1 = createLodging();
+        Lodging lodging2 = createLodging();
+        Weight weight1 = createWeight(1,2,3,4);
+        Weight weight2 = createWeight(5,5,5,5);
+        lodging1.setWeight(weight1);
+        lodging2.setWeight(weight2);
+        Long like1 = likeService.like(user.getId(), lodging1.getId());
+        Long like2 = likeService.like(user.getId(), lodging2.getId());
+
+        //when
+        likeService.cancelLike(like1);
+
+        //then
+        Assertions.assertEquals(user.getUserPrefer().getWeight().getNatural(), 5);
+        Assertions.assertEquals(user.getUserPrefer().getWeight().getIndustrial(), 5);
+    }
+
+    @Test
+    public void 좋아요_클릭_취소시_회원태그() throws Exception {
+
+        //given
+        User user = createUser();
+
+        Lodging lodging1 = createLodging();
+        Lodging lodging2 = createLodging();
+        Weight weight1 = createWeight(5,7,9, 11);
+        Weight weight2 = createWeight(11,5,10,5);
+        lodging1.setWeight(weight1);
+        lodging2.setWeight(weight2);
+        Long like1 = likeService.like(user.getId(), lodging1.getId());
+        Assertions.assertEquals(user.getUserPrefer().getWeight().getMain(), "asia");
+        Long like2 = likeService.like(user.getId(), lodging2.getId());
+        Assertions.assertEquals(user.getUserPrefer().getWeight().getMain(), "industrial");
+
+        //when
+        likeService.cancelLike(like1);
+
+        //then
+        Assertions.assertEquals(user.getUserPrefer().getWeight().getMain(), "natural");
     }
 }
