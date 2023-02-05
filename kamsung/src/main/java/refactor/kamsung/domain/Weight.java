@@ -33,5 +33,6 @@ public class Weight {
         if (asia > modern && asia > natural &&  asia > industrial) {
             this.main = "asia";
         } // 메인태그 구하는 로직 나중에 수정
+          // 가장 높은 가중치값이 여러개일때 어떻게할지
     }
 }

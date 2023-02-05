@@ -22,7 +22,7 @@ public class User {
     @Embedded
     private Address address;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user") // cascade 해야하나?
     private List<Like> likes = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
