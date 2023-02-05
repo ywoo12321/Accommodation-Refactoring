@@ -47,6 +47,26 @@ public class LikeServiceTest {
     }
 
     @Test
+    public void 좋아요_정보_받아오기() throws Exception {
+
+        //given
+        User user = createUser();
+        Lodging lodging = createLodging();
+        Weight weight = createWeight(1,1,1,1);
+        lodging.setWeight(weight);
+        Long likeId = likeService.like(user.getId(), lodging.getId());
+
+        //when
+       Like like = likeService.getLikeByUserLodging(user.getId(), lodging.getId());
+
+        //then
+        Long testId = like.getId();
+
+        //새로 등록한 likeId와 찾은 testId가 일치하는지 확인
+        Assertions.assertEquals(likeId, testId);
+    }
+
+    @Test
     public void 좋아요_클릭() throws Exception {
 
         //given
