@@ -3,14 +3,13 @@ package refactor.kamsung.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import refactor.kamsung.domain.Like;
-import refactor.kamsung.domain.Lodging;
-import refactor.kamsung.domain.User;
-import refactor.kamsung.domain.UserPrefer;
+import refactor.kamsung.domain.*;
 import refactor.kamsung.repository.LikeRepository;
 import refactor.kamsung.repository.LodgingRepository;
 import refactor.kamsung.repository.UserPreferRepository;
 import refactor.kamsung.repository.UserRepository;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -64,6 +63,21 @@ public class LikeService {
         Lodging lodging = lodgingRepository.findOne(like.getLodging().getId());
         lodging.getLikes().remove(like);  // 로직 맞는지 테스트, like 엔티티에 넣을지
         updateUserPrefer(user);
+    }
 
+    @Transactional(readOnly = true)
+    public Like getLikeByUserLodging(Long userId, Long lodgingId) {
+
+        Like userLike = new Like();
+        User user = userRepository.findOne(userId);
+        Lodging lodging = lodgingRepository.findOne(lodgingId);
+        List<Like> likes = user.getLikes();
+        for (Like like:likes) {
+            if (like.getLodging() == lodging) {
+                Long likeId = like.getId();
+                userLike = likeRepository.findOne(likeId);
+            }
+        }
+        return userLike;
     }
 }
