@@ -7,13 +7,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import refactor.kamsung.domain.Address;
 import refactor.kamsung.domain.LikeStatus;
 import refactor.kamsung.domain.Lodging;
+import refactor.kamsung.domain.User;
 import refactor.kamsung.repository.LodgingRepository;
+import refactor.kamsung.repository.UserRepository;
+import refactor.kamsung.service.LikeService;
 import refactor.kamsung.service.LodgingService;
 import refactor.kamsung.service.UserService;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +28,7 @@ public class LodgingApiController {
 
     private final LodgingRepository lodgingRepository;
     private final LodgingService lodgingService;
-
+    private final LikeService likeService;
 
     @GetMapping("api/lodging/{tag}") // 1.
     public List<TagLodgingDto> getLodgingsByTag(@PathVariable("tag") String tag) {
@@ -31,7 +36,6 @@ public class LodgingApiController {
         List<TagLodgingDto> result = lodgings.stream()
                 .map(l -> new TagLodgingDto(l))
                 .collect(Collectors.toList());
-
         return result;
     }
 
@@ -41,7 +45,15 @@ public class LodgingApiController {
         List<TagLodgingDto> result = lodgings.stream()
                 .map(l -> new TagLodgingDto(l))
                 .collect(Collectors.toList());
+        return result;
+    }
 
+    @GetMapping("api/lodging/{lodgingId}") // 숙소 상세페이지(회원용)
+    public UserLodgingDetailDto lodgingDetail(@PathVariable("lodgingId") Long lodgingId, @RequestBody @Valid UserIdRequest request) {
+        Lodging lodging = lodgingRepository.findOne(lodgingId);
+        UserLodgingDetailDto result = new UserLodgingDetailDto(lodging);
+        LikeStatus likeStatus = likeService.getLikeByUserLodging(lodgingId, request.getId()).getLikeStatus();
+        result.setLikeStatus(likeStatus);
         return result;
     }
 
@@ -60,4 +72,27 @@ public class LodgingApiController {
         }
     }
 
+    @Data
+    static class UserLodgingDetailDto {
+        private String lodgingName;
+        private List<String> lodgingImgs;
+        private Address address;
+        private String tag;
+        private LikeStatus likeStatus;
+
+        public UserLodgingDetailDto(Lodging lodging) { //회원일시 아닐시에따른 likeStatus
+            lodgingName = lodging.getName();
+            lodgingImgs = new ArrayList<>();
+            lodgingImgs.add(lodging.getSubImg1());
+            lodgingImgs.add(lodging.getSubImg2());
+            lodgingImgs.add(lodging.getSubImg3());
+            address = lodging.getAddress();
+            tag = lodging.getWeight().getMain();
+        }
+    }
+
+    @Data // 유저아이디 요청 dto
+    static class UserIdRequest {
+        private Long id;
+    }
 }

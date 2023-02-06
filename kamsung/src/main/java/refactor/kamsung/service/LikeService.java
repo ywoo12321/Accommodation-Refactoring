@@ -27,7 +27,7 @@ public class LikeService {
     @Transactional
     public void updateUserPrefer(User user) {
         if (user.getUserPrefer() == null) {
-            userPreferService.UserPrefer(user.getId());
+            userPreferService.userPrefer(user.getId());
         } else {
             UserPrefer userPrefer = userPreferRepository.findOne(user.getUserPrefer().getId());
             userPrefer.makeUserPrefer(user);

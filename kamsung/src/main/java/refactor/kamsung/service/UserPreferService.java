@@ -21,7 +21,7 @@ public class UserPreferService {
     private final UserRepository userRepository;
 
     @Transactional
-    public Long UserPrefer(Long userId) {
+    public Long userPrefer(Long userId) {
 
         User user = userRepository.findOne(userId);
         UserPrefer userPrefer = UserPrefer.createUserPrefer(user);
@@ -33,7 +33,7 @@ public class UserPreferService {
 
     //파라미터값을 유저아이디로할지 유저성향아이디로할지
     @Transactional
-    public List<Integer> findWeights(Long userPreferId) {
+    public List<Integer> findWeights(Long userPreferId) {  // 코사인 유사도 구하는데 사용
 
         UserPrefer userPrefer = userPreferRepository.findOne(userPreferId);
 
