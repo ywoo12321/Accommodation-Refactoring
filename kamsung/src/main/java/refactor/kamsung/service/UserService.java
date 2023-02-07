@@ -3,6 +3,7 @@ package refactor.kamsung.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import refactor.kamsung.domain.Address;
 import refactor.kamsung.domain.User;
 import refactor.kamsung.repository.UserRepository;
 
@@ -29,5 +30,18 @@ public class UserService {
         if (!users.isEmpty()) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }  // return --> "isUnique" : True(Bool)
+    }
+
+    @Transactional
+    public void update(Long id, String name, String password, Address address) {
+        User user = userRepository.findOne(id);
+        user.setNickname(name);
+        user.setPassword(password);
+        user.setAddress(address);
+    }
+
+    @Transactional
+    public User findOne(Long id) {
+        return userRepository.findOne(id);
     }
 }
