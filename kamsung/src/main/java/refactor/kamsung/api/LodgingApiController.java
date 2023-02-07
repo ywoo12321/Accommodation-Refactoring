@@ -49,10 +49,20 @@ public class LodgingApiController {
     }
 
     @GetMapping("api/lodging/{lodgingId}") // 숙소 상세페이지(회원용)
-    public UserLodgingDetailDto lodgingDetail(@PathVariable("lodgingId") Long lodgingId, @RequestBody @Valid UserIdRequest request) {
+    public LodgingDetailDto userLodgingDetail(@PathVariable("lodgingId") Long lodgingId,
+                                              @RequestBody @Valid UserIdRequest request) {
         Lodging lodging = lodgingRepository.findOne(lodgingId);
-        UserLodgingDetailDto result = new UserLodgingDetailDto(lodging);
+        LodgingDetailDto result = new LodgingDetailDto(lodging);
         LikeStatus likeStatus = likeService.getLikeByUserLodging(lodgingId, request.getId()).getLikeStatus();
+        result.setLikeStatus(likeStatus);
+        return result;
+    }
+
+    @GetMapping("api/lodging/{lodgingId}") // 숙소 상세페이지(회원용)
+    public LodgingDetailDto nonUserLodgingDetail(@PathVariable("lodgingId") Long lodgingId) {
+        Lodging lodging = lodgingRepository.findOne(lodgingId);
+        LodgingDetailDto result = new LodgingDetailDto(lodging);
+        LikeStatus likeStatus = LikeStatus.CANCEL;
         result.setLikeStatus(likeStatus);
         return result;
     }
@@ -73,14 +83,14 @@ public class LodgingApiController {
     }
 
     @Data
-    static class UserLodgingDetailDto {
+    static class LodgingDetailDto {
         private String lodgingName;
         private List<String> lodgingImgs;
         private Address address;
         private String tag;
         private LikeStatus likeStatus;
 
-        public UserLodgingDetailDto(Lodging lodging) { //회원일시 아닐시에따른 likeStatus
+        public LodgingDetailDto(Lodging lodging) {
             lodgingName = lodging.getName();
             lodgingImgs = new ArrayList<>();
             lodgingImgs.add(lodging.getSubImg1());
