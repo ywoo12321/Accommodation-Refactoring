@@ -21,9 +21,11 @@ public class UserRepository {
         return em.find(User.class, id);
     }
 
-    public List<User> findAll() {  // 코사인유사도 계산할때 사용
-        return em.createQuery("select u from User u", User.class)
+    public List<User> findAllButMe(User user) {  // 코사인유사도 계산할때 사용
+        List<User> result = em.createQuery("select u from User u", User.class)
                 .getResultList();
+        result.remove(user);
+        return result;
     }
 
     public List<User> findByName(String nickname) {
