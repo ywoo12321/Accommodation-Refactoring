@@ -3,6 +3,7 @@ package refactor.kamsung.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import refactor.kamsung.domain.Like;
 import refactor.kamsung.domain.User;
 import refactor.kamsung.domain.UserPrefer;
 import refactor.kamsung.repository.UserPreferRepository;
@@ -10,6 +11,9 @@ import refactor.kamsung.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.Math.sqrt;
+import static java.util.stream.Collectors.toList;
 
 @Service
 @Transactional(readOnly = true)
@@ -33,9 +37,9 @@ public class UserPreferService {
 
     //파라미터값을 유저아이디로할지 유저성향아이디로할지
     @Transactional
-    public List<Integer> findWeights(Long userPreferId) {  // 코사인 유사도 구하는데 사용
+    public List<Integer> findWeights(Long userId) {  // 코사인 유사도 구하는데 사용
 
-        UserPrefer userPrefer = userPreferRepository.findOne(userPreferId);
+        UserPrefer userPrefer = userRepository.findOne(userId).getUserPrefer();
 
         List<Integer> weightList = new ArrayList<>();
 
@@ -43,7 +47,69 @@ public class UserPreferService {
         weightList.add(userPrefer.getWeight().getModern());
         weightList.add(userPrefer.getWeight().getIndustrial());
         weightList.add(userPrefer.getWeight().getAsia());
+        weightList.add(userId.intValue());
 
         return weightList;
     }
+
+    @Transactional
+    public List<List<Integer>> findAllWeightsButMe(User user) { // 코사인 유사도 구하는데 사용
+        List<User> userList = userRepository.findAllButMe(user);
+
+        List<List<Integer>> result = userList.stream()
+                .map(u -> findWeights(u.getId()))
+                .collect(toList());
+
+        return result;
+    }
+
+    @Transactional
+    public List<List<Integer>> getUserCosineSimilarities(User user) {
+        List<List<Integer>> otherWeights = findAllWeightsButMe(user);
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> myWeight = findWeights(user.getId());
+        for (List<Integer> weight : otherWeights) {
+            List<Integer> cosineAndUserId = new ArrayList<>();
+            Integer dotProduct = 0;
+            double otherNorm = 0;
+            double myNorm = 0;
+            for (int i=0; i<4; i++) {
+                dotProduct += weight.get(i) * myWeight.get(i);
+                otherNorm += weight.get(i) * weight.get(i);
+                myNorm += myWeight.get(i) * myWeight.get(i);
+            }
+            double under = Math.sqrt(otherNorm) * Math.sqrt(myNorm);
+            double cosineSimilarity = (double) dotProduct / under;
+            cosineAndUserId.add((int) cosineSimilarity);
+            cosineAndUserId.add(weight.get(4));
+            result.add(cosineAndUserId);
+        }
+        return result;
+    }
+
+    @Transactional
+    public List<User> getTopThreeUser(User user) {
+        List<List<Integer>> cosineSimilarities = getUserCosineSimilarities(user);
+        List<Integer> cosineSimilarityList = new ArrayList<>();
+        List<Long> userIdList = new ArrayList<>();
+        List<User> result = new ArrayList<>();
+
+        for (List<Integer> cosineSimilarityAndUserId : cosineSimilarities) {
+            cosineSimilarityList.add(cosineSimilarityAndUserId.get(0));
+            userIdList.add(Long.valueOf(cosineSimilarityAndUserId.get(1)));
+        }
+
+        for (int i = 0; i < 3; i++) {
+            int maxIndex = 0;
+            for (int j = 1; j < cosineSimilarityList.size(); j++) {
+                if (cosineSimilarityList.get(j) > cosineSimilarityList.get(maxIndex)) {
+                    maxIndex = j;
+                }
+            }
+            cosineSimilarityList.remove(maxIndex);
+            result.add(userRepository.findOne(userIdList.remove(maxIndex)));
+        }
+        return result;
+    }
+
 }
