@@ -9,7 +9,7 @@ import javax.persistence.Embeddable;
 public class Weight {
 
     private String main;
-    private int natural;
+    private int naturals;
     private int modern;
     private int industrial;
     private int asia;
@@ -17,7 +17,7 @@ public class Weight {
     protected Weight() {}
 
     public Weight(int natural, int modern, int industrial, int asia) {
-        this.natural = natural;
+        this.naturals = natural;
         this.modern = modern;
         this.industrial = industrial;
         this.asia = asia;

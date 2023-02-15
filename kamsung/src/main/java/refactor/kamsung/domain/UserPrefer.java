@@ -21,6 +21,7 @@ public class UserPrefer {
     @OneToOne(mappedBy = "userPrefer", fetch = FetchType.LAZY)
     private User user;
 
+    @Embedded
     private Weight weight;
 
     public void makeUserPrefer(User user) {
@@ -31,7 +32,7 @@ public class UserPrefer {
         int asia = 0;
 
         for (int i = 0; i < likes.size(); i++) {
-            natural += likes.get(i).getLodging().getWeight().getNatural();
+            natural += likes.get(i).getLodging().getWeight().getNaturals();
             modern += likes.get(i).getLodging().getWeight().getModern();
             industrial += likes.get(i).getLodging().getWeight().getIndustrial();
             asia += likes.get(i).getLodging().getWeight().getAsia();

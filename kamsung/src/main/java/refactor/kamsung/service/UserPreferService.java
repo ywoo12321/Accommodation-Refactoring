@@ -43,7 +43,7 @@ public class UserPreferService {
 
         List<Integer> weightList = new ArrayList<>();
 
-        weightList.add(userPrefer.getWeight().getNatural());
+        weightList.add(userPrefer.getWeight().getNaturals());
         weightList.add(userPrefer.getWeight().getModern());
         weightList.add(userPrefer.getWeight().getIndustrial());
         weightList.add(userPrefer.getWeight().getAsia());
@@ -64,12 +64,12 @@ public class UserPreferService {
     }
 
     @Transactional
-    public List<List<Integer>> getUserCosineSimilarities(User user) {
+    public List<List<Double>> getUserCosineSimilarities(User user) {
         List<List<Integer>> otherWeights = findAllWeightsButMe(user);
-        List<List<Integer>> result = new ArrayList<>();
+        List<List<Double>> result = new ArrayList<>();
         List<Integer> myWeight = findWeights(user.getId());
         for (List<Integer> weight : otherWeights) {
-            List<Integer> cosineAndUserId = new ArrayList<>();
+            List<Double> cosineAndUserId = new ArrayList<>();
             Integer dotProduct = 0;
             double otherNorm = 0;
             double myNorm = 0;
@@ -80,23 +80,24 @@ public class UserPreferService {
             }
             double under = Math.sqrt(otherNorm) * Math.sqrt(myNorm);
             double cosineSimilarity = (double) dotProduct / under;
-            cosineAndUserId.add((int) cosineSimilarity);
-            cosineAndUserId.add(weight.get(4));
-            result.add(cosineAndUserId);
+            cosineAndUserId.add(cosineSimilarity);
+            cosineAndUserId.add((double) weight.get(4));
+            result.add((cosineAndUserId));
         }
         return result;
     }
 
     @Transactional
     public List<User> getTopThreeUser(User user) {
-        List<List<Integer>> cosineSimilarities = getUserCosineSimilarities(user);
-        List<Integer> cosineSimilarityList = new ArrayList<>();
+        List<List<Double>> cosineSimilarities = getUserCosineSimilarities(user);
+        List<Double> cosineSimilarityList = new ArrayList<>();
         List<Long> userIdList = new ArrayList<>();
         List<User> result = new ArrayList<>();
 
-        for (List<Integer> cosineSimilarityAndUserId : cosineSimilarities) {
+        for (List<Double> cosineSimilarityAndUserId : cosineSimilarities) {
             cosineSimilarityList.add(cosineSimilarityAndUserId.get(0));
-            userIdList.add(Long.valueOf(cosineSimilarityAndUserId.get(1)));
+            long l = cosineSimilarityAndUserId.get(1).longValue();
+            userIdList.add(l);
         }
 
         for (int i = 0; i < 3; i++) {
