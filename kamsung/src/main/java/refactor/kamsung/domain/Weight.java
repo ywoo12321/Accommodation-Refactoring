@@ -2,6 +2,7 @@ package refactor.kamsung.domain;
 
 import lombok.Getter;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
@@ -9,7 +10,8 @@ import javax.persistence.Embeddable;
 public class Weight {
 
     private String main;
-    private int naturals;
+    @Column(name = "naturals")
+    private int natural;
     private int modern;
     private int industrial;
     private int asia;
@@ -17,7 +19,7 @@ public class Weight {
     protected Weight() {}
 
     public Weight(int natural, int modern, int industrial, int asia) {
-        this.naturals = natural;
+        this.natural = natural;
         this.modern = modern;
         this.industrial = industrial;
         this.asia = asia;

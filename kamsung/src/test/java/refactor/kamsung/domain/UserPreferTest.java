@@ -59,11 +59,11 @@ public class UserPreferTest {
         UserPrefer userPrefer = UserPrefer.createUserPrefer(user);
 
         //then
-        Assertions.assertEquals(userPrefer.getWeight().getNaturals(), 24);
+        Assertions.assertEquals(userPrefer.getWeight().getNatural(), 24);
         Assertions.assertEquals(userPrefer.getWeight().getModern(), 31);
         Assertions.assertEquals(userPrefer.getWeight().getIndustrial(), 60);
         Assertions.assertEquals(userPrefer.getWeight().getAsia(), 43);
-        Assertions.assertEquals(user.getUserPrefer().getWeight().getNaturals(), 24);
+        Assertions.assertEquals(user.getUserPrefer().getWeight().getNatural(), 24);
         Assertions.assertEquals(user.getUserPrefer().getWeight().getModern(), 31);
         Assertions.assertEquals(user.getUserPrefer().getWeight().getIndustrial(), 60);
         Assertions.assertEquals(user.getUserPrefer().getWeight().getAsia(), 43);

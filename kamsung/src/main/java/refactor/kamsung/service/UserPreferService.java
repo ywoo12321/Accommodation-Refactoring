@@ -44,7 +44,7 @@ public class UserPreferService {
 
         List<Integer> weightList = new ArrayList<>();
 
-        weightList.add(userPrefer.getWeight().getNaturals());
+        weightList.add(userPrefer.getWeight().getNatural());
         weightList.add(userPrefer.getWeight().getModern());
         weightList.add(userPrefer.getWeight().getIndustrial());
         weightList.add(userPrefer.getWeight().getAsia());
@@ -119,7 +119,7 @@ public class UserPreferService {
 
         List<Integer> weightList = new ArrayList<>();
 
-        weightList.add(lodging.getWeight().getNaturals());
+        weightList.add(lodging.getWeight().getNatural());
         weightList.add(lodging.getWeight().getModern());
         weightList.add(lodging.getWeight().getIndustrial());
         weightList.add(lodging.getWeight().getAsia());

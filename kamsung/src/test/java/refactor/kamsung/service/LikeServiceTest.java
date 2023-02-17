@@ -131,7 +131,7 @@ public class LikeServiceTest {
         Long like2 = likeService.like(user.getId(), lodging2.getId());
 
         //then
-        Assertions.assertEquals(user.getUserPrefer().getWeight().getNaturals(), 6);
+        Assertions.assertEquals(user.getUserPrefer().getWeight().getNatural(), 6);
         Assertions.assertEquals(user.getUserPrefer().getWeight().getIndustrial(), 8);
     }
 
@@ -154,7 +154,7 @@ public class LikeServiceTest {
         likeService.cancelLike(like1);
 
         //then
-        Assertions.assertEquals(user.getUserPrefer().getWeight().getNaturals(), 5);
+        Assertions.assertEquals(user.getUserPrefer().getWeight().getNatural(), 5);
         Assertions.assertEquals(user.getUserPrefer().getWeight().getIndustrial(), 5);
     }
 
