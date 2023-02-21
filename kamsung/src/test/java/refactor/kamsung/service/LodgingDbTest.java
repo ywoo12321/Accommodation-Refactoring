@@ -37,11 +37,11 @@ public class LodgingDbTest {
 
         //then
         Assertions.assertEquals(lodging1.getWeight().getNatural(), 2);
-        Assertions.assertEquals(lodging1.getWeight().getMain(), "한옥");
+        Assertions.assertEquals(lodging1.getWeight().getMain(), "asia");
         Assertions.assertEquals(lodging1.getName(), "가을담");
         Assertions.assertEquals(lodging1.getAddress().getFirstAddress(), "경상");
         Assertions.assertEquals(lodging2.getWeight().getNatural(), 59);
-        Assertions.assertEquals(lodging2.getWeight().getMain(), "내츄럴");
+        Assertions.assertEquals(lodging2.getWeight().getMain(), "natural");
         Assertions.assertEquals(lodging2.getName(), "고운");
         Assertions.assertEquals(lodging2.getAddress().getFirstAddress(), "서울");
     }
