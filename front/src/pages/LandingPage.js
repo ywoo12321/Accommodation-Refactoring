@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
-import theme from "../styles/theme";
+import theme from "../styles/emotionTheme";
+import { Box, Typography, Container } from "@mui/material";
 import useScrollFadeIn from "../components/useScrollFadeIn";
 import { Link } from "react-router-dom";
 import Landing1 from "../images/Landing1.png";
@@ -33,258 +34,244 @@ const LandingPage = () => {
   const animatedItemLeft6 = useScrollFadeIn("left", "1", "0.3");
 
   return (
-    <>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
       <WhiteBox>
         <BigImageBox>
-          <img src={Landing1} width="864" height="1080" alt="Landing1" />
+          <img src={Landing1} width="100%" height="100%" alt="Landing1" />
         </BigImageBox>
         <RightBox>
           <RightTextBox>
-            <p className="bold" {...animatedItemUp1}>
+            <LargeText {...animatedItemUp1} fontWeight="bold">
               나만의
               <br />
               감성숙소를 찾아주다
-            </p>
-
-            <p className="btn" {...animatedItemUp2}>
+            </LargeText>
+            <SmallButton {...animatedItemUp2}>
               <Link to="/mainPage" style={{ color: "inherit", textDecoration: "inherit" }}>
                 둘러보기
               </Link>
-            </p>
+            </SmallButton>
           </RightTextBox>
         </RightBox>
       </WhiteBox>
       <YellowBox>
         <SecondLeftBox>
           <SecondTextBox>
-            <p className="bold" {...animatedItemUp3}>
+            <LargeText {...animatedItemUp3}>
               전국의
               <br /> 모든 감성숙소를
               <br /> 한눈에
-            </p>
-            <p className="normal" {...animatedItemUp4}>
-              찾아보기 힘들었던 감성숙소들을 모아놨어요.
-            </p>
+            </LargeText>
+            <SmallText {...animatedItemUp4}>찾아보기 힘들었던 감성숙소들을 모아놨어요.</SmallText>
           </SecondTextBox>
         </SecondLeftBox>
         <SecondImageContainer>
-          <img src={Landing2} width="507" height="338" alt="Landing2" {...animatedItemLeft3} />
-          <img src={Landing3} width="507" height="338" alt="Landing3" {...animatedItemLeft4} />
-          <img src={Landing4} width="507" height="338" alt="Landing4" {...animatedItemLeft5} />
-          <img src={Landing5} width="507" height="338" alt="Landing5" {...animatedItemLeft6} />
+          <SecondImageBox>
+            <img src={Landing2} width="100%" height="100%" alt="Landing2" {...animatedItemLeft3} />
+          </SecondImageBox>
+          <SecondImageBox>
+            <img src={Landing3} width="100%" height="100%" alt="Landing3" {...animatedItemLeft4} />
+          </SecondImageBox>
+          <SecondImageBox>
+            <img src={Landing4} width="100%" height="100%" alt="Landing4" {...animatedItemLeft5} />
+          </SecondImageBox>
+          <SecondImageBox>
+            <img src={Landing5} width="100%" height="100%" alt="Landing5" {...animatedItemLeft6} />
+          </SecondImageBox>
         </SecondImageContainer>
       </YellowBox>
       <WhiteBox>
         <BigImageBox>
-          <img src={Landing6} width="864" height="1080" alt="Landing6" />
+          <img src={Landing6} width="100%" height="100%" alt="Landing6" />
         </BigImageBox>
         <RightBox>
           <RightTextBox>
-            <p className="bold" {...animatedItemUp5}>
+            <LargeText {...animatedItemUp5} fontWeight="bold">
               당신의
               <br /> 취향을 찾아주는 곳
-            </p>
-            <p className="normal" {...animatedItemUp6}>
+            </LargeText>
+            <SmallText {...animatedItemUp6}>
               여러가지 태그의 숙소들을 보며
               <br /> 여러분의 취향을 알아가봐요
-            </p>
+            </SmallText>
           </RightTextBox>
         </RightBox>
       </WhiteBox>
       <ForthYellowBox>
         <ForthImageContainer>
           <ForthImageBox>
-            <img src={Landing7} width="549" height="367" alt="Landing7" {...animatedItemDown1} />
-            <img src={Landing8} width="549" height="367" alt="Landing8" {...animatedItemDown2} />
-            <img src={Landing9} width="549" height="367" alt="Landing9" {...animatedItemDown3} />
+            <img src={Landing7} width="30%" height="100%" alt="Landing7" {...animatedItemDown1} />
+            <img src={Landing8} width="30%" height="100%" alt="Landing8" {...animatedItemDown2} />
+            <img src={Landing9} width="30%" height="100%" alt="Landing9" {...animatedItemDown3} />
           </ForthImageBox>
         </ForthImageContainer>
         <ForthBottomBox>
           <ForthTextBox>
-            <p className="bold" {...animatedItemLeft1}>
-              당신의 발견을 기다리고 있어요
-            </p>
-            <p className="normal" {...animatedItemLeft2}>
+            <LargeText {...animatedItemLeft1}>당신의 발견을 기다리고 있어요</LargeText>
+            <SmallText {...animatedItemLeft2}>
               숲속에 숨겨진 감성부터
               <br /> 바다옆에 놓인 감성까지
-            </p>
+            </SmallText>
           </ForthTextBox>
         </ForthBottomBox>
       </ForthYellowBox>
       <LastBox {...animatedItemUp7}>
         <LastTextBox>
-          <p>
+          <SmallButton>
             <Link to="/mainPage" style={{ color: "inherit", textDecoration: "inherit" }}>
               지금 바로 취향 찾으러 가기
             </Link>
-          </p>
+          </SmallButton>
         </LastTextBox>
-        <Link to="/mainPage" style={{ color: "inherit", textDecoration: "inherit" }}>
-          <img src={Landing10} width="144" height="167" alt="Landing10" />
-        </Link>
       </LastBox>
       <Footer />
-    </>
+    </Box>
   );
 };
 
 export default LandingPage;
 
-const WhiteBox = styled.div`
-  width: 1920px;
-  height: 1080px;
+const WhiteBox = styled(Box)`
+  width: 100vw;
   display: block;
   display: flex;
   flex-direction: column;
   flex-direction: row;
   justify-content: space-between;
 `;
-const YellowBox = styled.div`
-  width: 1920px;
-  height: 1080px;
+const YellowBox = styled(Box)`
+  width: 100vw;
   display: block;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   background-color: ${theme.color.point};
 `;
-const ForthYellowBox = styled.div`
-  width: 1920px;
-  height: 1080px;
+const ForthYellowBox = styled(Box)`
+  width: 100vw;
+  height: 56.25vw;
   display: block;
   display: flex;
   flex-direction: column;
   justify-content: center;
   background-color: ${theme.color.point};
 `;
-const LastBox = styled.div`
-  width: 1920px;
-  height: 389px;
+const LastBox = styled(Box)`
+  width: 100vw;
+  height: 20.26vw;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 `;
-const BigImageBox = styled.div`
-  width: 864px;
-  height: 100vh;
+const BigImageBox = styled(Box)`
+  width: 45vw;
+  height: 56.25vw;
 `;
-const RightBox = styled.div`
+const RightBox = styled(Box)`
+  height: 56.25vw;
   display: block;
   display: flex;
   flex-direction: column;
-  //   align-items: right;
   justify-content: right;
 `;
-const RightTextBox = styled.div`
-  width: 800px;
-  height: 280px;
-  margin-top: 654px;
-  margin-right: 76px;
+const RightTextBox = styled(Box)`
+  width: 41.67vw;
+  height: 14.58vw;
+  margin-top: 34vw;
+  margin-right: 4vw;
   margin-bottom: 0px;
   text-align: right;
-  & > .bold {
-    margin: 0px;
-    font-family: ${theme.font_family.T};
-    font-size: ${theme.font_size.tittle};
-    color: ${theme.color.main};
-  }
-  & > .normal {
-    margin-top: 20px;
-    font-family: ${theme.font_family.N};
-    font-size: ${theme.font_size.h2};
-    color: ${theme.color.gray};
-  }
-  & > .btn {
-    margin-top: 20px;
-    margin-left: 687px;
-    cursor: pointer;
-    width: 115px;
-    height: 32px;
-    font-family: ${theme.font_family.N};
-    font-size: ${theme.font_size.h2};
-    color: ${theme.color.gray};
-  }
 `;
-const SecondLeftBox = styled.div`
-  width: 603px;
-  height: 1080px;
+const SecondLeftBox = styled(Box)`
+  width: 31.4vw;
+  height: 56.25vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
 `;
-const SecondTextBox = styled.div`
-  width: 603px;
-  height: 397px;
-  margin-left: 76px;
+const SecondTextBox = styled(Box)`
+  width: 100%;
+  height: 16vw;
+  margin-left: 4vw;
   text-align: left;
-  & > .bold {
-    margin: 0px;
-    font-family: ${theme.font_family.T};
-    font-size: ${theme.font_size.tittle};
-    color: ${theme.color.main};
-  }
-  & > .normal {
-    margin-top: 20px;
-    font-family: ${theme.font_family.N};
-    font-size: ${theme.font_size.h2};
-    color: ${theme.color.gray};
-  }
 `;
-const SecondImageContainer = styled.div`
-  width: 1037px;
-  height: 709px;
-  display: block;
-  margin-top: 186px;
+const SecondImageContainer = styled(Container)`
+  width: 60vw;
+  height: 36.92vw;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 10vw;
+  margin-top: 11vw;
   justify-content: space-between;
 `;
-const ForthImageContainer = styled.div`
-  width: 1920px;
-  height: 368px;
-  margin-top: 288px;
+const SecondImageBox = styled(Box)`
+  width: 25vw;
+  height: 17.6vw;
+`;
+const ForthImageContainer = styled(Box)`
+  width: 100vw;
+  height: 19.16vw;
+  margin-top: 5vw;
   display: block;
   display: flex;
   justify-content: center;
 `;
-const ForthImageBox = styled.div`
-  width: 1783px;
-  height: 368px;
+const ForthImageBox = styled(Box)`
+  width: 92.86vw;
+  height: 100%;
   display: flex;
   justify-content: space-between;
   flex-direction: row;
 `;
-const ForthBottomBox = styled.div`
-  width: 1920px;
-  height: 205px;
+const ForthBottomBox = styled(Box)`
+  width: 100vw;
+  height: 10.67vw;
   display: flex;
-  margin-top: 106px;
+  margin-top: 5.5vw;
   flex-direction: column;
   align-items: center;
 `;
-const ForthTextBox = styled.div`
-  width: 1139px;
-  height: 205px;
+const ForthTextBox = styled(Box)`
+  width: 59.32vw;
+  height: 10.67vw;
   text-align: center;
-  & > .bold {
-    margin: 0px;
-    font-family: ${theme.font_family.T};
-    font-size: ${theme.font_size.tittle};
-    color: ${theme.color.main};
-  }
-  & > .normal {
-    margin-top: 20px;
-    font-family: ${theme.font_family.N};
-    font-size: ${theme.font_size.h2};
-    color: ${theme.color.gray};
-  }
 `;
-const LastTextBox = styled.div`
+const LastTextBox = styled(Box)`
   width: 442;
   height: 50;
   text-align: baseline;
-  & > p {
-    font-family: ${theme.font_family.T};
-    font-size: ${theme.font_size.h1};
-    color: ${theme.color.main};
+`;
+
+const LargeText = styled(Typography)`
+  font-weight: bold;
+  color: black;
+  font-size: 2.8rem;
+  @media screen and (max-width: 430px) {
+    font-size: ${theme.font_size.body1};
+  }
+`;
+
+const SmallText = styled(Typography)`
+  font-weight: regular;
+  color: gray;
+  font-size: ${theme.font_size.h5};
+  @media screen and (max-width: 430px) {
+    font-size: 0.3rem;
+  }
+`;
+const SmallButton = styled(Typography)`
+  font-weight: regular;
+  color: gray;
+  cursor: pointer;
+  font-size: ${theme.font_size.h5};
+  @media screen and (max-width: 430px) {
+    font-size: 0.7rem;
   }
 `;

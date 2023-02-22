@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar";
 import styled from "@emotion/styled";
-import theme from "../styles/theme";
+import theme from "../styles/emotionTheme";
 import Btn from "../components/Btn";
 import axios from "axios";
 import { useState, useEffect } from "react";

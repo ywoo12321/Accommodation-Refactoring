@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import theme from "../styles/theme";
+import theme from "../styles/emotionTheme";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
