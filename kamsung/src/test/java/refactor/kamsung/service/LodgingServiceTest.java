@@ -12,11 +12,12 @@ import refactor.kamsung.repository.LodgingRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
-public class LodgingDbTest {
+public class LodgingServiceTest {
 
     @PersistenceContext
     EntityManager em;
@@ -44,5 +45,20 @@ public class LodgingDbTest {
         Assertions.assertEquals(lodging2.getWeight().getMain(), "natural");
         Assertions.assertEquals(lodging2.getName(), "고운");
         Assertions.assertEquals(lodging2.getAddress().getFirstAddress(), "서울");
+    }
+
+    @Test
+    public void 태그별_숙소_조회_테스트() throws Exception {
+
+        //given
+        List<Lodging> lodgings = lodgingService.findLodgingsByTag("asia");
+
+        //when
+
+        //then
+        for (Lodging lodging: lodgings) {
+            Assertions.assertEquals(lodging.getWeight().getMain(), "asia");
+        }
+        System.out.println(lodgings.size());
     }
 }
