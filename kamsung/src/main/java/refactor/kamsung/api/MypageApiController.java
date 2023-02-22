@@ -38,7 +38,7 @@ public class MypageApiController {
         }
     }
 
-    @GetMapping("/api/mypage/{id}") // 찜리스트
+    @GetMapping("/api/mypage/like/{id}") // 찜리스트
     public List<MypageLikeListResponse> likeList(@PathVariable("id") Long userId) {
         User user = userService.findOne(userId);
         List<Like> likes = user.getLikes();

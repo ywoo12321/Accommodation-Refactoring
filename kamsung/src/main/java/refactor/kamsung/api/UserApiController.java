@@ -52,7 +52,7 @@ public class UserApiController {
         private String secondAddress;
     }
 
-    @PostMapping("/api/users")
+    @PostMapping("/api/users/join")
     public CreateUserResponse saveUser(@RequestBody @Valid CreateUserRequest request) {
         User user = new User();
         user.setNickname(request.getNickname());
