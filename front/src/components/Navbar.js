@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import theme from "../styles/theme";
+import theme from "../styles/emotionTheme";
 import { useState, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 import logo from "../images/logo.png";

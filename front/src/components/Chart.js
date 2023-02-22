@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import theme from "../styles/theme";
+import theme from "../styles/emotionTheme";
 import LocationChart from "../components/LocationChart";
 import ThemeChart from "../components/ThemeChart";
 import LikeChart from "../components/LikeChart";

@@ -1,6 +1,6 @@
 import Btn from "./Btn";
 import styled from "@emotion/styled";
-import theme from "../styles/theme";
+import theme from "../styles/emotionTheme";
 import LoginImg from "../images/LoginImg.png";
 import { Link } from "react-router-dom";
 

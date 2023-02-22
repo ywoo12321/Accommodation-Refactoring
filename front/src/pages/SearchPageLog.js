@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import theme from "../styles/theme";
+import theme from "../styles/emotionTheme";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useLocation, Link } from "react-router-dom";

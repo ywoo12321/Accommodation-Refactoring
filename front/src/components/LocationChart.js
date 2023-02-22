@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import ReactApexChart from "react-apexcharts";
-import theme from "../styles/theme";
+import theme from "../styles/emotionTheme";
 
 const LocationChart = props => {
   const themeData = Object.values(props.children);
