@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import org.springframework.transaction.annotation.Transactional;
+import refactor.kamsung.repository.UserRepository;
 import refactor.kamsung.service.LikeService;
 import refactor.kamsung.service.UserService;
 
@@ -15,14 +16,17 @@ import refactor.kamsung.service.UserService;
 public class SampleData {
 
     private final SampleDataService sampleDataService;
+    private final UserRepository userRepository;
 
     @PostConstruct
     public void makeSampleData() {
-        sampleDataService.makeUser1();
-        sampleDataService.makeUser2();
-        sampleDataService.makeUser3();
-        sampleDataService.makeUser4();
-        sampleDataService.makeUser5();
+        if (userRepository.findAll().isEmpty()) {
+            sampleDataService.makeUser1();
+            sampleDataService.makeUser2();
+            sampleDataService.makeUser3();
+            sampleDataService.makeUser4();
+            sampleDataService.makeUser5();
+        }
     }
 
     @Component

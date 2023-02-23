@@ -28,6 +28,12 @@ public class UserRepository {
         return result;
     }
 
+    public List<User> findAll() {  // 코사인유사도 계산할때 사용
+        List<User> result = em.createQuery("select u from User u", User.class)
+                .getResultList();
+        return result;
+    }
+
     public List<User> findByName(String nickname) {
         return em.createQuery("select m from User m where m.nickname = :nickname",
                         User.class)
