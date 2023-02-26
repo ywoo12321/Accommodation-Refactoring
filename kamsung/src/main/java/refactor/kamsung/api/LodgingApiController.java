@@ -31,7 +31,7 @@ public class LodgingApiController {
     private final LikeService likeService;
 
 
-    @GetMapping("api/lodging/") // 태그별 숙소리스트
+    @GetMapping("api/lodging") // 태그별 숙소리스트
     public List<TagLodgingDto> getLodgingsByTag(@RequestBody @Valid LodgingTagRequest request) {
         List<Lodging> lodgings = lodgingService.findLodgingsByTag(request.getTag());
         List<TagLodgingDto> result = lodgings.stream()
@@ -40,13 +40,23 @@ public class LodgingApiController {
         return result;
     }
 
-    @GetMapping("api/lodging/{lodgingId}/{userId}") // 숙소 상세페이지(회원용)
+//    @GetMapping("api/lodging/{lodgingId}/{userId}") // 숙소 상세페이지(회원용) (후보1)
+//    public LodgingDetailDto userLodgingDetail(@PathVariable("lodgingId") Long lodgingId,
+//                                              @PathVariable("userId") Long userId,
+//                                              @RequestBody @Valid UserIdRequest request) {
+//        Lodging lodging = lodgingRepository.findOne(lodgingId);
+//        LodgingDetailDto result = new LodgingDetailDto(lodging);
+//        LikeStatus likeStatus = likeService.getLikeByUserLodging(request.getId(), lodgingId).getLikeStatus();
+//        result.setLikeStatus(likeStatus);
+//        return result;
+//    }
+
+    @GetMapping("api/lodging/{lodgingId}/{userId}") // 숙소 상세페이지(회원용) (후보2)
     public LodgingDetailDto userLodgingDetail(@PathVariable("lodgingId") Long lodgingId,
-                                              @PathVariable("userId") Long userId,
-                                              @RequestBody @Valid UserIdRequest request) {
+                                              @PathVariable("userId") Long userId) {
         Lodging lodging = lodgingRepository.findOne(lodgingId);
         LodgingDetailDto result = new LodgingDetailDto(lodging);
-        LikeStatus likeStatus = likeService.getLikeByUserLodging(lodgingId, request.getId()).getLikeStatus();
+        LikeStatus likeStatus = likeService.getLikeByUserLodging(userId, lodgingId).getLikeStatus();
         result.setLikeStatus(likeStatus);
         return result;
     }
