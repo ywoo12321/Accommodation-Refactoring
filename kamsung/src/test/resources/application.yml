@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/kamsung?serverTimezone=UTC&characterEncoding=UTF-8
-    username: root
-    password: 1234
+    url: jdbc:mysql://ls-4ad53a5bf29e68a94b9b91793b86a27814bf1bf9.c2doy4l81g20.ap-northeast-2.rds.amazonaws.com:3306/kamsung?serverTimezone=UTC&characterEncoding=UTF-8
+    username: dbmasteruser
+    password: tjq1034912
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
