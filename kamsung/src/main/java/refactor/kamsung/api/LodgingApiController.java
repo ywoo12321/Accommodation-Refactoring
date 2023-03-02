@@ -31,16 +31,43 @@ public class LodgingApiController {
     private final LikeService likeService;
 
 
-    @GetMapping("api/lodging") // 태그별 숙소리스트
-    public List<TagLodgingDto> getLodgingsByTag(@RequestBody @Valid LodgingTagRequest request) {
-        List<Lodging> lodgings = lodgingService.findLodgingsByTag(request.getTag());
-        List<TagLodgingDto> result = lodgings.stream()
+//    @GetMapping("api/lodging") // 메인페이지용 태그별 숙소리스트 (요청필요)
+//    public List<TagLodgingDto> getLodgingsByTag(@RequestBody @Valid LodgingTagRequest request) {
+//        List<Lodging> lodgings = lodgingService.findLodgingsByTag(request.getTag());
+//        List<TagLodgingDto> result = lodgings.stream()
+//                .map(l -> new TagLodgingDto(l))
+//                .collect(Collectors.toList());
+//        return result;
+//    }
+
+    @GetMapping("api/lodging/mainpage") // 메인페이지용 태그별 숙소리스트 (요청필요 X)
+    public MainPageLodgingDto lodgingForMainPage() {
+        List<List<TagLodgingDto>> lodgings = new ArrayList<>();
+        List<Lodging> natural = lodgingService.findLodgingsByTag("natural");
+        List<TagLodgingDto> naturals = natural.stream()
                 .map(l -> new TagLodgingDto(l))
                 .collect(Collectors.toList());
+        List<Lodging> modern = lodgingService.findLodgingsByTag("modern");
+        List<TagLodgingDto> moderns = modern.stream()
+                .map(l -> new TagLodgingDto(l))
+                .collect(Collectors.toList());
+        List<Lodging> asia = lodgingService.findLodgingsByTag("asia");
+        List<TagLodgingDto> asias = asia.stream()
+                .map(l -> new TagLodgingDto(l))
+                .collect(Collectors.toList());
+        List<Lodging> industrial = lodgingService.findLodgingsByTag("industrial");
+        List<TagLodgingDto> industrials = industrial.stream()
+                .map(l -> new TagLodgingDto(l))
+                .collect(Collectors.toList());
+        lodgings.add(naturals);
+        lodgings.add(moderns);
+        lodgings.add(asias);
+        lodgings.add(industrials);
+        MainPageLodgingDto result = new MainPageLodgingDto(lodgings);
         return result;
     }
 
-//    @GetMapping("api/lodging/{lodgingId}/{userId}") // 숙소 상세페이지(회원용) (후보1)
+//    @GetMapping("api/lodging/{lodgingId}/{userId}") // 숙소 상세페이지(회원용) (요청필요)
 //    public LodgingDetailDto userLodgingDetail(@PathVariable("lodgingId") Long lodgingId,
 //                                              @PathVariable("userId") Long userId,
 //                                              @RequestBody @Valid UserIdRequest request) {
@@ -51,7 +78,7 @@ public class LodgingApiController {
 //        return result;
 //    }
 
-    @GetMapping("api/lodging/{lodgingId}/{userId}") // 숙소 상세페이지(회원용) (후보2)
+    @GetMapping("api/lodging/{lodgingId}/{userId}") // 숙소 상세페이지(회원용) (요청필요X)
     public LodgingDetailDto userLodgingDetail(@PathVariable("lodgingId") Long lodgingId,
                                               @PathVariable("userId") Long userId) {
         Lodging lodging = lodgingRepository.findOne(lodgingId);
@@ -83,6 +110,20 @@ public class LodgingApiController {
             lodgingMainImg = lodging.getMainImg();
             lodgingName = lodging.getName();
             lodgingId = lodging.getId();
+        }
+    }
+
+    @Data // 태그별 숙소 이미지, 이름 응답 dto
+    static class MainPageLodgingDto {
+        private List<TagLodgingDto> natural;
+        private List<TagLodgingDto> modern;
+        private List<TagLodgingDto> asia;
+        private List<TagLodgingDto> industrial;
+        public MainPageLodgingDto(List<List<TagLodgingDto>> lodgings) {
+            natural = lodgings.get(0);
+            modern = lodgings.get(1);
+            asia = lodgings.get(2);
+            industrial = lodgings.get(3);
         }
     }
 
